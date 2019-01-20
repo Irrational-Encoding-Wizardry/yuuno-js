@@ -1,0 +1,22 @@
+{
+  "name": "@yuuno/net",
+  "version": "1.3.0",
+  "description": "> TODO: description",
+  "author": "Roland Netzsch <stuxcrystal@encode.moe>",
+  "homepage": "",
+  "license": "LGPL-3.0-or-later",
+  "main": "dist/net.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "tsc": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^3.2.4"
+  }
+}
