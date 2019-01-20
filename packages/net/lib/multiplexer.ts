@@ -47,7 +47,7 @@ export class ConnectionMultiplexer extends ChildConnection {
      * @param name The name of the multiplexed connection.
      * @returns    A connection object.
      */
-    register(name: MultiplexerTarget) : Connection {
+    public register(name: MultiplexerTarget) : Connection {
         if (this.connectionTable.has(name))
             throw new Error("Target already exists");
 
@@ -60,12 +60,12 @@ export class ConnectionMultiplexer extends ChildConnection {
      * Unregisters a connection with the given name.
      * @param name The name of the multiplexed connection
      */
-    unregister(name: MultiplexerTarget) {
+    public unregister(name: MultiplexerTarget) {
         if (this.connectionTable.has(name))
             this.connectionTable.delete(name);
     }
 
-    _receive_actual(data: MultiplexerMessage, binaries: DataView[]) : void {
+    private _receive_actual(data: MultiplexerMessage, binaries: DataView[]) : void {
         if (!this.connectionTable.has(data.target))
             return;
 

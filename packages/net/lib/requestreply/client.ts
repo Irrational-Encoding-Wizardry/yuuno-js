@@ -1,28 +1,9 @@
-import { ChildConnection, Connection } from "./base";
-import { JSONObject, JSONValue } from "./datatypes";
-import { Counter, PromiseDelegate } from "./utils";
+import { ChildConnection, Connection } from "../base";
+import { JSONObject } from "../datatypes";
+import { Counter, PromiseDelegate } from "../utils";
 
+import { Reply, ResponseEnvelope, Envelope } from './types';
 
-interface Envelope extends JSONObject {
-    type: string,
-    id: string,
-    payload: JSONValue
-}
-
-interface FailedResponse extends Envelope {
-    type: "failure",
-    id: string,
-    payload: {message: string}
-}
-
-interface AnswerResponse extends Envelope {
-    type: "response",
-    id: string,
-    payload: JSONValue
-}
-
-type ResponseEnvelope = FailedResponse|AnswerResponse;
-export type Reply<T> = [T&JSONValue, DataView[]];
 
 const connection_counter = Counter.makeNumberCounter();
 
@@ -38,7 +19,7 @@ export class RequestReply extends ChildConnection {
         this.request_counter = new Counter((s) => `${connection_id}/${s}`);
     }
 
-    request<T>(name: string, data?: JSONObject, binaries?: DataView[]) : Promise<Reply<T>> {
+    public request<T>(name: string, data?: JSONObject, binaries?: DataView[]) : Promise<Reply<T>> {
         if (binaries === undefined)
             binaries = [];
 
@@ -58,7 +39,7 @@ export class RequestReply extends ChildConnection {
         return pd.promise;
     }
 
-    _actual_receive(data: ResponseEnvelope, binaries: DataView[]) : void {
+    private _actual_receive(data: ResponseEnvelope, binaries: DataView[]) : void {
         if (!this.request_map.has(data.id))
             return;
 
