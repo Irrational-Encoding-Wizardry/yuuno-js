@@ -4,6 +4,11 @@
   "devDependencies": {
     "lerna": "^3.10.6"
   },
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "compile": "lerna run tsc",
+    "build-jupyter": "yarn run compile && lerna run build --scope @yuuno/jupyter"
+  },
   "workspaces": [
     "packages/*"
   ]

@@ -5,8 +5,13 @@
     "declaration": true,
     "strict": true,
     "lib": [
+        "dom",
         "es2015.collection",
         "es6"
     ]
   },
+  "exclude": [
+      "../../node_modules",
+      "./node_modules"
+  ]
 }
